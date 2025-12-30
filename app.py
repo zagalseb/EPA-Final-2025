@@ -2,20 +2,17 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+import os
+
+
 st.set_page_config(page_title="Full Play-By-Play", layout="wide")
 
-XLSX_PATH = "/workspaces/EPA-Final-2025/Play_by_Play_2025 (5).xlsx"
-
-COL_Q      = "Cuarto"
-COL_DOWN   = "Down"
-COL_DST    = "DST"
-COL_MTY    = "MTY Score"
-COL_UANL   = "UANL Score"
-COL_DETAIL = "Play-By-Play"
+# Ruta relativa al repo (mismo folder que app.py)
+XLSX_PATH = os.path.join(os.path.dirname(__file__), "Play_by_Play_2025 (5).xlsx")
 
 @st.cache_data
 def load_data(path: str) -> pd.DataFrame:
-    df = pd.read_excel(path)
+    df = pd.read_excel(path, engine="openpyxl")  # explícito
     df.columns = [c.strip() for c in df.columns]
     return df
 
