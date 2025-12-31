@@ -23,16 +23,20 @@ df = load_data(XLSX_PATH)
 # -----------------------
 def parse_quarter(x):
     if pd.isna(x):
-        return np.nan
+        return None
     s = str(x).strip().lower()
+
     if s.isdigit():
         v = int(s)
-        return v if 1 <= v <= 4 else np.nan
+        return v if 1 <= v <= 4 else None
+
     if s.startswith("1"): return 1
     if s.startswith("2"): return 2
     if s.startswith("3"): return 3
     if s.startswith("4"): return 4
-    return np.nan
+
+    return None
+
 
 def parse_down(x):
     if pd.isna(x):
